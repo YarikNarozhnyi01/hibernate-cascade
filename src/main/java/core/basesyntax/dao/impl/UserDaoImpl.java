@@ -20,7 +20,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
         try {
             session = factory.openSession();
             transaction = session.beginTransaction();
-            session.save(entity);
+            session.persist(entity);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -37,10 +37,8 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     @Override
     public User get(Long id) {
-        User user = null;
         try (Session session = factory.openSession()) {
-            user = session.get(User.class, id);
-            return user;
+            return session.get(User.class, id);
         } catch (Exception e) {
             throw new RuntimeException("Can not get user by id ... :",e);
         }
